@@ -3,7 +3,7 @@ layout: page
 title: Example Analysis
 description: ~
 ---
-We consider a simple situation with two outcomes as an example for METEOR. Before running the tutorial, make sure that the MAPLE package is successfully installed. Please see the [link](02_installation.html) for the installation instructions. The example data for the tutorial can be downloaded in this [link](https://github.com/Liye222/METEOR/tree/main/example).
+We consider a simple situation with two outcomes as an example for METEOR. Before running the tutorial, make sure that the MAPLE package is successfully installed. Please see the [link](https://Liye222.github.io/METEOR/documentation/02_installation.html) for the installation instructions. The example data for the tutorial can be downloaded in this [link](https://github.com/Liye222/METEOR/tree/main/example).
 
 # A simulated data example
 
