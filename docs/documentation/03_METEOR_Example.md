@@ -5,15 +5,15 @@ description: ~
 ---
 We consider a simple situation with two outcomes as an example for METEOR. Before running the tutorial, make sure that the MAPLE package is successfully installed. Please see the [link](https://Liye222.github.io/METEOR/documentation/02_installation.html) for the installation instructions. The example data for the tutorial can be downloaded in this [link](https://github.com/Liye222/METEOR/tree/main/example).
 
-# A simulated data example
+## A simulated data example
 
 We conducted an alternative simulation in which exposure  exerts a non-zero effect on the first outcome while having no effect on the second outcome. This simulation was based on the realistic genotypes from UK Biobank, with sample sizes of n<sub>1</sub> = n<sub>21</sub> =  n<sub>22</sub> = 50,000 on chr 1. 
 
-## Step 1: Estimation of correlation matrix $\mathbf{\Omega}$
+### Step 1: Estimation of correlation matrix $\Omega$
 
-The function `Omega_est` or `Omega_est_nopar` can estimate the parameter $\mathbf{\Omega}$ using to account for sample structure (e.g., population stratification, sample overlap and any correlations among them).
+The function `Omega_est` or `Omega_est_nopar` can estimate the parameter **$\Omega$** using to account for sample structure (e.g., population stratification, sample overlap and any correlations among them).
 
-```{r eval=FALSE}
+```r
 library(Rcpp)
 library(RcppArmadillo)
 library(RcppDist)
@@ -34,7 +34,7 @@ Users can use two functions, `Omega_est` or `Omega_est_nopar`, to estimate $\pmb
 
 Function 1: `Omega_est`
 
-```{r eval=FALSE}
+```r
 library(parallel)
 Omega <- Omega_est(data_list=summarydata,
                    ldscore.dir = "./eur_w_ld_chr",
@@ -44,14 +44,14 @@ Omega <- Omega_est(data_list=summarydata,
 
 Function 2: `Omega_est_nopar`
 
-```{r eval=FALSE}
+```r
 Omega <- Omega_est_nopar(data_list=summarydata,
                          ldscore.dir = "./eur_w_ld_chr")
 ```
 
 The input from summary statistics:
   
-* **summarydata**: a list of GWAS-summary-level data for exposure (*dat_x*) and two outcomes (*dat_y1*,*dat_y2*)
+- **summarydata**: a list of GWAS-summary-level data for exposure (*dat_x*) and two outcomes (*dat_y1*,*dat_y2*)
   
    *dat_x*: GWAS summary-level data for exposure, including
 
@@ -70,9 +70,9 @@ The input from summary statistics:
 
    *dat_yi*: GWAS summary-level data for the $i$-th outcome which is similar as *dat_x*.
  
-* **ldscore.dir**: specify the path to the LD score files.
-* **nCores**: The number of required cores or *NA*.
-* **system_used**: The system used.
+- **ldscore.dir**: specify the path to the LD score files.
+- **nCores**: The number of required cores or *NA*.
+- **system_used**: The system used.
 
 The argument **ldscore.dir** specifies the path to LD score files. Because the GWASs used for this example are based on European samples, we can use the LD score files from <https://github.com/yuanzhongshang/MAPLE/tree/main/example/eur_w_ld_chr>, which are provided by the ldsc software (<https://github.com/bulik/ldsc>). These LD Scores were computed using 1000 Genomes European data. Users can also calculate the LD scores by themselves.
 
@@ -80,16 +80,16 @@ Users can specify the rs number, effect allele, and the other allele using the a
 
 The functions `Omega_est` and `Omega_est_nopar` will also conduct the following quality control procedures:
   
-* extract SNPs in HapMap 3 list,
-* remove SNPs with minor allele frequency $< 0.05$ (if freq_col column is available),
-* remove SNPs with alleles not in (G, C, T, A),
-* remove SNPs with ambiguous alleles (G/C or A/T) or other false alleles (A/A, T/T, G/G or C/C),
-* exclude SNPs in the complex Major Histocompatibility Region (Chromosome 6, 26Mb-34Mb),
-* remove SNPs with $\chi^2 > \chi^2_{max}$. The default value for $\chi^2_{max}$ is $max(N/1000, 80)$.
+- extract SNPs in HapMap 3 list,
+- remove SNPs with minor allele frequency $< 0.05$ (if freq_col column is available),
+- remove SNPs with alleles not in (G, C, T, A),
+- remove SNPs with ambiguous alleles (G/C or A/T) or other false alleles (A/A, T/T, G/G or C/C),
+- exclude SNPs in the complex Major Histocompatibility Region (Chromosome 6, 26Mb-34Mb),
+- remove SNPs with $\chi^2 > \chi^2_{max}$. The default value for $\chi^2_{max}$ is $max(N/1000, 80)$.
 
 Now, we can check the estimates with the following commands:
   
-```{r eval=FALSE}
+```r
 Omega
 #$Omega
 #            [,1]        [,2]        [,3]
@@ -106,17 +106,17 @@ Omega
 
 The output contains:
   
-* **Omega**: the estimate of $\mathbf\Omega$, the off-diagonal elements of `Omega` are the intercept estimates of cross-trait LD score regression; the diagonal elements of `Omega` are the intercept estimates of single-trait LD score regressions.
+- **Omega**: the estimate of $\mathbf\Omega$, the off-diagonal elements of `Omega` are the intercept estimates of cross-trait LD score regression; the diagonal elements of `Omega` are the intercept estimates of single-trait LD score regressions.
 
-* **Omega.se**: the estimated matrix consists of the standard errors of the intercept estimates obtained from LD score regression.
+- **Omega.se**: the estimated matrix consists of the standard errors of the intercept estimates obtained from LD score regression.
 
 Users have the option to skip this step and set the estimate `Omega` of $\mathbf\Omega$ to the identity matrix if there is no confounding arising from sample structure.
 
-## Step 2: Running METEOR
+### Step 2: Running METEOR
 
 The `METEOR` function utilizes a scalable sampling-based algorithm to acquire calibrated $p$-values.
 
-```{r eval=FALSE}
+```r
 #load the z-score
 zscorex =fread(paste0("./zscorex.txt"),head=F)
 zx<-as.matrix(zscorex,ncol=1)
@@ -143,26 +143,26 @@ result<-METEOR(Zscore,Sigma,N,Omega_est,Omega_se,Gibbsnumber=1000,burninproporti
 
 The input from summary statistics:
   
-* **Zscore**: the Zscore with k+1 rows and p columns of the SNP effect size matrix for the exposure and k outcomes.
-* **Sigma**: the LD matrix for the SNPs selected from the exposure can be obtained by using the weighted average LD matrix from k outcomes. If individual data is unavailable, the LD matrix can also be derived from a reference panel.
-* **N**: the sample size of exposure and k outcomes GWASs.
-* **Omega_est**: the correlation matrix derived by LDSC.
-* **Omega_se**: the standard errors of elements of $Omega$ derived by LDSC.
-* **Gibbsnumber**: the number of Gibbs sampling iterations with the default to be 1000.
-* **burninproportion**:  the proportion to burn in from Gibbs sampling iterations, with default to be 20%.
-* **lambda**: the tuning parameter used to ensure that the correlation matrix is invertible.
-* **pi_beta_shape**: the prior shape paramter for $\pi_\beta$ with the default to be 0.5.
-* **pi_beta_scale**: the prior scale paramter for $\pi_\beta$ with the default to be 4.5.
-* **pi_1_shape**: the prior shape paramter for $\pi_1$ with the default to be 0.5.
-* **pi_1_scale**: the prior scale paramter for $\pi_1$ with the default to be 1.5.
-* **pi_0_shape**: the prior shape paramter for $\pi_0$ with the default to be 0.05.
-* **pi_0_scale**: the prior scale paramter for $\pi_0$ with the default to be 9.95.
+- **Zscore**: the Zscore with k+1 rows and p columns of the SNP effect size matrix for the exposure and k outcomes.
+- **Sigma**: the LD matrix for the SNPs selected from the exposure can be obtained by using the weighted average LD matrix from k outcomes. If individual data is unavailable, the LD matrix can also be derived from a reference panel.
+- **N**: the sample size of exposure and k outcomes GWASs.
+- **Omega_est**: the correlation matrix derived by LDSC.
+- **Omega_se**: the standard errors of elements of $Omega$ derived by LDSC.
+- **Gibbsnumber**: the number of Gibbs sampling iterations with the default to be 1000.
+- **burninproportion**:  the proportion to burn in from Gibbs sampling iterations, with default to be 20%.
+- **lambda**: the tuning parameter used to ensure that the correlation matrix is invertible.
+- **pi_beta_shape**: the prior shape paramter for $\pi_\beta$ with the default to be 0.5.
+- **pi_beta_scale**: the prior scale paramter for $\pi_\beta$ with the default to be 4.5.
+- **pi_1_shape**: the prior shape paramter for $\pi_1$ with the default to be 0.5.
+- **pi_1_scale**: the prior scale paramter for $\pi_1$ with the default to be 1.5.
+- **pi_0_shape**: the prior shape paramter for $\pi_0$ with the default to be 0.05.
+- **pi_0_scale**: the prior scale paramter for $\pi_0$ with the default to be 9.95.
 
 Note that,  we use $p=5\times{10}^{-8}$ for METEOR to select candidate IVs without LD clumping. However, if the number of SNPs is too much, such as (greater than 10000), suggesting using LD clumping with $r^2=0.5$ to select candidate IVs. Additionally, users can employ the LD matrix derived from the weighted average LD matrix from k outcomes, or an LD reference panel as **Sigma**, provided that no additional LD matrices are available for the SNPs in the $k$ outcome data.
 
 Now, we can check the estimates from METEOR:
   
-```{r eval=FALSE}
+```r
 result$causal_effect
 #          [,1]       [,2]
 #[1,] 0.0785606 0.01103452
@@ -178,14 +178,14 @@ result$causal_pvalue_overall
 
 The output from `METEOR` is a list containing:
   
-* **causal_effect**: the estimate of k causal effects.
-* **causal_pvalue_single**: the $p$ values for the causal effects in single tests.
-* **causal_pvalue_overall**: the $p$ value for the causal effect in overall tests.
-* **cause_sd**: the standard deviation for the causal effects.
-* **cause_cov**: the covariance for the causal effects.
-* **sigmabeta**: the variance estimate for the SNP effect sizes on the exposure.
-* **sigmaeta**: the variance estimates for the horizontal pleiotropy effects.
-* **Omega**: the correlation matrix for one exposure and k outcomes.
-* **pi_beta**: the proportion of selected SNPs, which show non-zero effects on exposure.
-* **pi_1**: the proportion of selected SNPs showing horizontal pleiotropy.
-* **pi_0**: the proportion of non-selected SNPs showing horizontal pleiotropy.
+- **causal_effect**: the estimate of k causal effects.
+- **causal_pvalue_single**: the $p$ values for the causal effects in single tests.
+- **causal_pvalue_overall**: the $p$ value for the causal effect in overall tests.
+- **cause_sd**: the standard deviation for the causal effects.
+- **cause_cov**: the covariance for the causal effects.
+- **sigmabeta**: the variance estimate for the SNP effect sizes on the exposure.
+- **sigmaeta**: the variance estimates for the horizontal pleiotropy effects.
+- **Omega**: the correlation matrix for one exposure and k outcomes.
+- **pi_beta**: the proportion of selected SNPs, which show non-zero effects on exposure.
+- **pi_1**: the proportion of selected SNPs showing horizontal pleiotropy.
+- **pi_0**: the proportion of non-selected SNPs showing horizontal pleiotropy.
