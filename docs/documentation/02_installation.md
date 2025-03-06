@@ -15,7 +15,7 @@ description: ~
 install.packages('devtools')
 ```
 
-### 2. Install MAPLE
+### 2. Install METEOR
 
 ```
 devtools::install_github('Liye222/METEOR')
