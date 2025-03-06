@@ -75,14 +75,14 @@ pre, img {
 
 pre {
   border: 0px none;
-  background-color: black;
+  background-color: #F8F8F8;
   white-space: pre;
   overflow-x: auto;
 }
 
 pre code {
   border: 1px #aaa dashed;
-  background-color: black;
+  background-color: white;
   display: block;
   padding: 1em;  
   color: #111;
@@ -115,7 +115,7 @@ table, td, th {
 
 /* alternating row colors */
 tbody tr:nth-child(odd) td {
-  background-color: white;
+  background-color: #F8F8F8;
 }
 
 blockquote {
@@ -130,7 +130,7 @@ hr {
    border-bottom: none;
    border-top-width: thin;
    border-top-style: dotted;
-   border-top-color: #666666;
+   border-top-color: #999999;
 }
 
 span.header-section-number {
