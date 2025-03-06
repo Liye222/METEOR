@@ -10,11 +10,13 @@ METEOR is an R package for efficient statistical inference of multi-outcomes men
 
 Installation
 ------------
-You can install the released version of GIFT from Github with the following code, for more installation details or solutions that might solve related issues (specifically MacOS system) see the [link](https://yuanzhongshang.github.io/GIFT/documentation/02_installation.html).
+You can install the released version of MAPLE from Github with the following code. This package is supported for Windows 10/11, and Linux. The package has been tested on the following systems:
+* Windows 10, 11
+* Linux: Ubuntu (22.04.4)
 
 ### Dependencies 
-* R version >= 4.0.0.
-* R packages: Rcpp, RcppArmadillo, parallel
+* R version >= 3.6.0
+* R packages: R packages: Rcpp, RcppArmadillo, RcppDist, dplyr, magrittr, readr, parallel
 
 
 ### 1. Install `devtools` if necessary
@@ -22,36 +24,21 @@ You can install the released version of GIFT from Github with the following code
 install.packages('devtools')
 ```
 
-### 2. Install `GIFT`
+### 2. Install `METEOR`
 ```r
-devtools::install_github('yuanzhongshang/GIFT')
+devtools::install_github('Liye222/METEOR')
 ```
 ### 3. Load package
 ```r
-library(GIFT)
+library(METEOR)
 ```
-
-This package is supported for Windows 10, MAC and Linux. The package has been tested on the following systems:
-- Windows 10
-- MAC: OSX (10.14.1)
-- Linux: Ubuntu (16.04.6)
 
 ### Issues
 All feedback, bug reports and suggestions are warmly welcomed! Please make sure to raise issues with a detailed and reproducible example and also please provide the output of your sessionInfo() in R! 
 
-How to cite `GIFT`
+
+How to use `METEOR`
 -------------------
-Liu, L., Yan, R., Guo, P. et al. Conditional transcriptome-wide association study for fine-mapping candidate causal genes. Nat Genet 56, 348–356 (2024).
-[https://doi.org/10.1038/s41588-023-01645-y](https://doi.org/10.1038/s41588-023-01645-y)
 
-How to use `GIFT`
--------------------
-Example Analysis with GIFT: [here](https://yuanzhongshang.github.io/GIFT/documentation/04_GIFT_Example.html).
+The METEOR User Manual: [here](https://github.com/Liye222/METEOR/blob/main/docs/METEOR_user_manual.pdf).
 
-The GIFT Manual: [here](https://github.com/yuanzhongshang/GIFT/blob/main/docs/GIFT%20manual.pdf).
-
-The genome-wide eQTL summary statistics from GEUVADIS data
--------------------
-This data is availible in the dropbox: [here](https://www.dropbox.com/scl/fo/4nqcmkblerspfmva5stwf/ANHZU_kX2AlveEEbx9DKbZU?rlkey=qjcxprlk83t7pw8ka2ne2v4w9&dl=0).
-
-The correlation matrix among gene expressions for each chromosome from GEUVADIS data is also availible in the dropbox: [here](https://www.dropbox.com/home/GEUVADIS/correlation%20matrix).
