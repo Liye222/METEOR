@@ -9,9 +9,9 @@ We consider a simple situation with two outcomes as an example for METEOR. Befor
 
 We conducted an alternative simulation in which exposure  exerts a non-zero effect on the first outcome while having no effect on the second outcome. This simulation was based on the realistic genotypes from UK Biobank, with sample sizes of n<sub>1</sub> = n<sub>21</sub> =  n<sub>22</sub> = 50,000 on chr 1. 
 
-### Step 1: Estimation of correlation matrix $\Omega$
+### Step 1: Estimation of correlation matrix \Omega
 
-The function `Omega_est` or `Omega_est_nopar` can estimate the parameter **$\Omega$** using to account for sample structure (e.g., population stratification, sample overlap and any correlations among them).
+The function `Omega_est` or `Omega_est_nopar` can estimate the parameter **\Omega** using to account for sample structure (e.g., population stratification, sample overlap and any correlations among them).
 
 ```r
 library(Rcpp)
