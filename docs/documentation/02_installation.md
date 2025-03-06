@@ -32,7 +32,7 @@ library(METEOR)
 (1)Cannot find tools necessary when using R in the MacOS system.
 
 ```
-Error: Failed to install 'MAPLE' from GitHub:
+Error: Failed to install 'METEOR' from GitHub:
   Could not find tools necessary to compile a package
 Call `pkgbuild::check_build_tools(debug = TRUE)` to diagnose the problem.
 ```
