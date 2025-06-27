@@ -6,7 +6,7 @@ description: Multiple Outcome Mendelian Randomization
 ---
 ## METEOR Overview
 ![METEOR\_pipeline](METEOR.png)
-METEOR is an R package for efficient statistical inference of multi-outcomes mendelian randomization analysis, METEOR utilizes a set of correlated SNPs, self-adaptively accounts for the sample structure of both exposure and outcomes, the uncertainty that these correlated SNPs may exhibit multiple pleiotropic effects. The term ‘self-adaptive’ represents that METEOR is able to automatically infer the sample structure and the probability that a SNP has specific pleiotropic effect from the data at hand. METEOR places the inference of the causal effects into a likelihood-framework and relies on a scalable sampling-based algorithm to obtain calibrated $p$-values, freely available at https://github.com/Liye222/METEOR. 
+METEOR is an R package for efficient statistical inference of multi-outcomes mendelian randomization analysis for the identification of shared and outcome-specific exposures. METEOR jointly models one exposure and multiple outcomes, accounts for sample overlap between the exposure and outcomes as well as among outcomes, allows the outcomes to be from different GWAS datasets, self-adaptively selects IVs from a set of correlated SNPs, and efficiently models the horizontal pleiotropy. METEOR places the inference of the causal effects into a joint likelihood-framework and relies on a scalable sampling-based algorithm to obtain calibrated $p$-values,freely available at https://github.com/Liye222/METEOR. 
 
 Installation
 ------------
