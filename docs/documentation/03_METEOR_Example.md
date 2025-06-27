@@ -68,7 +68,7 @@ The input from summary statistics:
        2:  rs58276399 -0.0040463990 0.01609338  0.111  C  T 0.8014823 19125
        3: rs141242758 -0.0062410460 0.01608838  0.111  C  T 0.6980775 19179
 
-   *dat_yi*: GWAS summary-level data for the $i$-th outcome which is similar as *dat_x*.
+   *dat_yk*: GWAS summary-level data for the $k$-th outcome which is similar as *dat_x*.
  
 - **ldscore.dir**: specify the path to the LD score files.
 - **nCores**: The number of required cores or *NA*.
@@ -143,9 +143,9 @@ result<-METEOR(Zscore,Sigma,N,Omega_est,Omega_se,Gibbsnumber=1000,burninproporti
 
 The input from summary statistics:
   
-- **Zscore**: the Zscore with k+1 rows and p columns of the SNP effect size matrix for the exposure and k outcomes.
-- **Sigma**: the LD matrix for the SNPs selected from the exposure can be obtained by using the weighted average LD matrix from k outcomes. If individual data is unavailable, the LD matrix can also be derived from a reference panel.
-- **N**: the sample size of exposure and k outcomes GWASs.
+- **Zscore**: the Zscore with $K+1$ rows and p columns of the SNP effect size matrix for the exposure and $K$ outcomes.
+- **Sigma**: the LD matrix for the SNPs selected from the exposure can be obtained by using the weighted average LD matrix from $K$ outcomes. If individual data is unavailable, the LD matrix can also be derived from a reference panel.
+- **N**: the sample sizes of exposure and $K$ outcomes GWASs.
 - **Omega_est**: the correlation matrix derived by LDSC.
 - **Omega_se**: the standard errors of elements of $Omega$ derived by LDSC.
 - **Gibbsnumber**: the number of Gibbs sampling iterations with the default to be 1000.
@@ -178,14 +178,14 @@ result$causal_pvalue_overall
 
 The output from `METEOR` is a list containing:
   
-- **causal_effect**: the estimate of k causal effects.
+- **causal_effect**: the estimate of $K$ causal effects.
 - **causal_pvalue_single**: the $p$ values for the causal effects in single tests.
 - **causal_pvalue_overall**: the $p$ value for the causal effect in overall tests.
 - **cause_sd**: the standard deviation for the causal effects.
 - **cause_cov**: the covariance for the causal effects.
 - **sigmabeta**: the variance estimate for the SNP effect sizes on the exposure.
 - **sigmaeta**: the variance estimates for the horizontal pleiotropy effects.
-- **Omega**: the correlation matrix for one exposure and k outcomes.
+- **Omega**: the correlation matrix for one exposure and $K$ outcomes.
 - **pi_beta**: the proportion of selected SNPs, which show non-zero effects on exposure.
 - **pi_1**: the proportion of selected SNPs showing horizontal pleiotropy.
 - **pi_0**: the proportion of non-selected SNPs showing horizontal pleiotropy.
